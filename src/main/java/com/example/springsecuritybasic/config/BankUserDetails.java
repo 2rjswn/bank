@@ -3,6 +3,7 @@ package com.example.springsecuritybasic.config;
 import com.example.springsecuritybasic.model.Customer;
 import com.example.springsecuritybasic.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -19,8 +20,8 @@ public class BankUserDetails implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        String userName, password = null;
-        List<GrantedAuthority> authorities = null;
+        String userName, password;
+        List<GrantedAuthority> authorities;
         List<Customer> customer = customerRepository.findByEmail(username);
         if (customer.size() == 0) {
             throw new UsernameNotFoundException("User details not found for the user : " + username);
