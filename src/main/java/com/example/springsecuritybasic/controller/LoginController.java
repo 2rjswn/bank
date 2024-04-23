@@ -23,12 +23,12 @@ public class LoginController {
             if (savedCustomer.getId() > 0) {
                 response = ResponseEntity
                         .status(HttpStatus.CREATED)
-                        .body("Given user details are successfully registered");
+                        .body("성공");
             }
         } catch (Exception ex) {
             response = ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("An exception occured due to " + ex.getMessage());
+                    .body("응 실패 " + ex.getMessage());
         }
         return response;
     }

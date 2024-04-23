@@ -23,14 +23,14 @@ public class BankUserDetails implements UserDetailsService {
         String userName, password;
         List<GrantedAuthority> authorities;
         List<Customer> customer = customerRepository.findByEmail(username);
-        if (customer.size() == 0) {
+        if (customer.isEmpty()) {
             throw new UsernameNotFoundException("User details not found for the user : " + username);
-        } else{
+        } else {
             userName = customer.get(0).getEmail();
             password = customer.get(0).getPwd();
             authorities = new ArrayList<>();
             authorities.add(new SimpleGrantedAuthority(customer.get(0).getRole()));
         }
-        return new User(userName,password,authorities);
+        return new User(userName, password, authorities);
     }
 }
