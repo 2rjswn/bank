@@ -71,12 +71,12 @@ public class SecurityConfig {
 //        return new JdbcUserDetailsManager(dataSource);
 //    }
 //    @Bean
-//    public PasswordEncoder passwordEncoder() {
+//    public PasswordEncoder passwordEncoder() {//보안 있
 //        return new BCryptPasswordEncoder();
 //    }
 
 @Bean
-public PasswordEncoder passwordEncoder() {
+public PasswordEncoder passwordEncoder() {//보안 없
     return NoOpPasswordEncoder.getInstance();
 }
 }
