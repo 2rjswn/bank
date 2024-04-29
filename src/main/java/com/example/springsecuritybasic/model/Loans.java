@@ -3,13 +3,15 @@ import java.sql.Date;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name="loans")
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter
+@Setter
 public class Loans {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO,generator="native")

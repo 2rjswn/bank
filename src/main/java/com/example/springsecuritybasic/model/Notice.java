@@ -4,13 +4,15 @@ import java.sql.Date;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "notice_details")
-@AllArgsConstructor
-@NoArgsConstructor
+@Getter
+@Setter
 public class Notice {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO,generator="native")

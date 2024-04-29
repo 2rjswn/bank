@@ -1,17 +1,15 @@
 package com.example.springsecuritybasic.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.util.Date;
 
 @Entity
 @Table(name = "cards")
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter
+@Setter
 public class Cards {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO,generator="native")

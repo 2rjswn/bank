@@ -7,8 +7,8 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Table(name = "customer")
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter
+@Setter
 public class Customer {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO,generator="native")
@@ -30,4 +30,6 @@ public class Customer {
 
     @Column(name = "create_dt")
     private String createDt;
+
+
 }
