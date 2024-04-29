@@ -1,18 +1,33 @@
 package com.example.springsecuritybasic.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
-@Getter
-@Setter
+
 @Table(name = "customer")
-@Entity(name = "bank")
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Customer {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO,generator="native")
     @GenericGenerator(name = "native",strategy = "native")
-    private Long id;
+    @Column(name = "customer_id")
+    private int id;
+
+    private String name;
+
     private String email;
+
+    @Column(name = "mobile_number")
+    private String mobileNumber;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String pwd;
+
     private String role;
+
+    @Column(name = "create_dt")
+    private String createDt;
 }
