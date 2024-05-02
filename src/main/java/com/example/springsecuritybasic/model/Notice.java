@@ -25,12 +25,6 @@ public class Notice {
     @Column(name = "notice_details")
     private String noticeDetails;
 
-    @Column(name = "notic_beg_dt")
-    private Date noticBegDt;
-
-    @Column(name = "notic_end_dt")
-    private Date noticEndDt;
-
     @Column(name = "create_dt")
     private Date createDt;
 

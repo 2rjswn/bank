@@ -38,10 +38,14 @@ public class SecurityConfig {
             }
         })).csrf((csrf) -> csrf.csrfTokenRequestHandler(requestHandler).ignoringRequestMatchers("/contact", "/register")
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
-                .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class);
+                        .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class);
         http.authorizeHttpRequests((requests) -> requests
-            .requestMatchers("/myAccount","/myBalance","/myLoans","/myCards").authenticated()
-            .anyRequest().permitAll());
+                .requestMatchers("/myAccount").hasRole("USER")
+                .requestMatchers("/myBalance").hasAnyRole("USER","ADMIN")
+                .requestMatchers("/myLoans").hasRole("USER")
+                .requestMatchers("/myCards").hasRole("USER")
+                .requestMatchers("/user").authenticated()
+                .requestMatchers("/notices","/contact","/register").permitAll());
         return http.build();
     }
 
