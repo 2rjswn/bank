@@ -30,9 +30,9 @@ public class RequestValidationBeforeFilter implements Filter {
                 byte[] base64Token = header.substring(6).getBytes(StandardCharsets.UTF_8);//"basic "잘라내기
                 byte[] decoded;
                 try {
-                    decoded = Base64.getDecoder().decode(base64Token);
+                    decoded = Base64.getDecoder().decode(base64Token);//decoded에 토큰 저장
                     String token = new String(decoded, credentialsCharset);
-                    int delim = token.indexOf(":");
+                    int delim = token.indexOf(":");//이름과 비번 구분하는 : 위치 찾은 후 delim에 저장
                     if (delim == -1) {
                         throw new BadCredentialsException("Invalid basic authentication token");
                     }
