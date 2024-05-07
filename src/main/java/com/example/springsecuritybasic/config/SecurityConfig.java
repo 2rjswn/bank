@@ -1,5 +1,7 @@
 package com.example.springsecuritybasic.config;
 
+import com.example.springsecuritybasic.filter.AuthoritiesLoggingAfterFilter;
+import com.example.springsecuritybasic.filter.AuthoritiesLoggingAtFilter;
 import com.example.springsecuritybasic.filter.CsrfCookieFilter;
 import com.example.springsecuritybasic.filter.RequestValidationBeforeFilter;
 import jakarta.servlet.http.HttpServletRequest;
@@ -40,7 +42,9 @@ public class SecurityConfig {
         })).csrf((csrf) -> csrf.csrfTokenRequestHandler(requestHandler).ignoringRequestMatchers("/contact", "/register")
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                         .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)
-                        .addFilterBefore(new RequestValidationBeforeFilter(), BasicAuthenticationFilter.class);
+                        .addFilterBefore(new RequestValidationBeforeFilter(), BasicAuthenticationFilter.class)
+                        .addFilterAt(new AuthoritiesLoggingAtFilter(), BasicAuthenticationFilter.class)
+                        .addFilterAfter(new AuthoritiesLoggingAfterFilter(), BasicAuthenticationFilter.class);
         http.authorizeHttpRequests((requests) -> requests
                 .requestMatchers("/myAccount").hasRole("USER")
                 .requestMatchers("/myBalance").hasAnyRole("USER","ADMIN")
