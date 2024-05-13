@@ -1,9 +1,6 @@
 package com.example.springsecuritybasic.config;
 
-import com.example.springsecuritybasic.filter.AuthoritiesLoggingAfterFilter;
-import com.example.springsecuritybasic.filter.AuthoritiesLoggingAtFilter;
-import com.example.springsecuritybasic.filter.CsrfCookieFilter;
-import com.example.springsecuritybasic.filter.RequestValidationBeforeFilter;
+import com.example.springsecuritybasic.filter.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -41,12 +38,14 @@ public class SecurityConfig {
                 config.setMaxAge(3600L);
                 return config;
             }
-        })).csrf((csrf) -> csrf.csrfTokenRequestHandler(requestHandler).ignoringRequestMatchers("/contact", "/register")
+        })).csrf((csrf) -> csrf.csrfTokenRequestHandler(requestHandler).ignoringRequestMatchers("/contact","/register")
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
-                        .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)
-                        .addFilterBefore(new RequestValidationBeforeFilter(), BasicAuthenticationFilter.class)
-                        .addFilterAt(new AuthoritiesLoggingAtFilter(), BasicAuthenticationFilter.class)
-                        .addFilterAfter(new AuthoritiesLoggingAfterFilter(), BasicAuthenticationFilter.class);
+                .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)
+                .addFilterBefore(new RequestValidationBeforeFilter(), BasicAuthenticationFilter.class)
+                .addFilterAt(new AuthoritiesLoggingAtFilter(),BasicAuthenticationFilter.class)
+                .addFilterAfter(new AuthoritiesLoggingAfterFilter(), BasicAuthenticationFilter.class)
+                .addFilterAfter(new JWTTokenGeneratorFilter(), BasicAuthenticationFilter.class)
+                .addFilterBefore(new JWTTokenValidatorFilter(), BasicAuthenticationFilter.class);
         http.authorizeHttpRequests((requests) -> requests
                 .requestMatchers("/myAccount").hasRole("USER")
                 .requestMatchers("/myBalance").hasAnyRole("USER","ADMIN")
