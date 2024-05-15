@@ -28,14 +28,14 @@ public class bankUsernamePwdAuthenticationProvider implements AuthenticationProv
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String username = authentication.getName();
         String pwd = authentication.getCredentials().toString();
-        List<Customer> customer = customerRepository.findByEmail(username);
-        if (customer.size() > 0) {
-            if (passwordEncoder.matches(pwd, customer.get(0).getPwd())) {
-                return new UsernamePasswordAuthenticationToken(username, pwd, getGrantedAuthorities(customer.get(0).getAuthorities()));
+        Customer customer = customerRepository.findByEmail(username);
+        if (customer != null) {
+            if (passwordEncoder.matches(pwd, customer.getPwd())) {
+                return new UsernamePasswordAuthenticationToken(username, pwd, getGrantedAuthorities(customer.getAuthorities()));
             } else {
                 throw new BadCredentialsException("Invalid password!");
             }
-        }else {
+        } else {
             throw new BadCredentialsException("No user registered with this details!");
         }
     }
