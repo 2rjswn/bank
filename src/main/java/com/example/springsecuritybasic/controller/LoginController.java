@@ -42,7 +42,6 @@ public class LoginController {
         }
         return response;
     }
-
     @GetMapping("/user")
     public Customer getUserDetailsAfterLogin(Authentication authentication) {
         Customer customers = customerRepository.findByEmail(authentication.getName());
