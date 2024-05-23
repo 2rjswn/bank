@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.time.ZonedDateTime;
 import java.util.Set;
 
 @Table(name = "customer")
