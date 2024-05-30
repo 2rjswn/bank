@@ -44,8 +44,8 @@ public class SecurityConfig {
                 .addFilterBefore(new RequestValidationBeforeFilter(), BasicAuthenticationFilter.class)
                 .addFilterAt(new AuthoritiesLoggingAtFilter(),BasicAuthenticationFilter.class)
                 .addFilterAfter(new AuthoritiesLoggingAfterFilter(), BasicAuthenticationFilter.class)
-                .addFilterAfter(new JWTTokenGeneratorFilter(), BasicAuthenticationFilter.class)
-                .addFilterBefore(new JWTTokenValidatorFilter(), BasicAuthenticationFilter.class);
+                .addFilterAfter(new JWTGeneratorFilter(), BasicAuthenticationFilter.class)
+                .addFilterBefore(new JWTValidatorFilter(), BasicAuthenticationFilter.class);
         http.authorizeHttpRequests((requests) -> requests
                 .requestMatchers("/myAccount").hasRole("USER")
                 .requestMatchers("/myBalance").hasAnyRole("USER","ADMIN")
